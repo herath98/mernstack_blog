@@ -1,12 +1,13 @@
 import User from "../model/user.model.js";
 import bcrypt from 'bcryptjs';
+import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     // Check for empty fields and return a 400 error if any are empty
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: 'All fields are required.' });
+    if (!username || !email || !password || username==='' || email==='' || password==='') {
+        next(errorHandler(400, 'Please fill in all fields'));
     }
 
     try {
