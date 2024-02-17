@@ -1,7 +1,7 @@
 import User from "../model/user.model.js";
 import bcrypt from 'bcryptjs';
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     // Check for empty fields and return a 400 error if any are empty
@@ -33,7 +33,6 @@ export const signup = async (req, res) => {
         // Send a success response
         res.status(201).json( { message: 'Signup successful!'});
     } catch (error) {
-        // Send a 500 error response in case of an error
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };

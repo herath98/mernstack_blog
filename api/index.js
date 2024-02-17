@@ -29,3 +29,17 @@ app.listen(3000, () => {
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 
+// Error handling middleware to catch and respond to any errors in the application
+app.use((err, req, res, next) => {
+    // Set status code to the error's status or default to 500 if not provided
+    const statusCode = err.statusCode || 500;
+    // Set error message to the error's message or default to a generic message if not provided
+    const message = err.message || 'Something went wrong';
+    // Send the error response with status code and message
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message
+    });
+});
+
