@@ -7,13 +7,13 @@ import authRoutes from './routes/auth.router.js';
 dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO)
-.then(() => {
-    console.log("MongoDB is connected");
-})
-.catch((err) => {
-    console.log(err);
-});
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("MongoDB is connected");
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
 const app = express();
 
@@ -21,8 +21,9 @@ const app = express();
 app.use(express.json());
 
 // Start the server
-app.listen(3000, () => {
-    console.log("Server is running on port 3000")
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
 // Use routes
@@ -42,4 +43,3 @@ app.use((err, req, res, next) => {
         message
     });
 });
-
