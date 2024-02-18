@@ -8,6 +8,7 @@ import SingIn from './pages/SingIn'
 import Dashboard from './pages/Dashboard'
 import Project from './pages/Project'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='project' element={<Project />} />
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }
