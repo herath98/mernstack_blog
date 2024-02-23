@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true, // Corrected the typo from `require` to `required`
     },
+    profilePicture: {
+        type: String,
+        default: 'https://static.thenounproject.com/png/1559146-200.png',
+    }, 
 }, { timestamps: true }); // Enable timestamps to track creation and update times
 
 // Create a model from the schema
