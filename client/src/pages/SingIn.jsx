@@ -1,13 +1,16 @@
+// SignIn.js
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null); // Corrected variable name
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error, successMessage } = useSelector((state) => state.user);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,20 +20,17 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) { // Removed formData.username check
-      setErrorMessage('Please fill in all fields');
+    if (!formData.email || !formData.password) {
+      dispatch(signInFailure('Please fill in all fields'));
       return;
     }
-    // Check if email and password are the same
     if (formData.email === formData.password) {
-      setErrorMessage('Email and password cannot be the same');
+      dispatch(signInFailure('Email and password cannot be the same'));
       return;
     }
-
-    // Add form validation here if needed
 
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -39,23 +39,23 @@ export default function SignIn() {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-      setLoading(false);
-      if (res.ok) {
-        setSuccessMessage('Signup successful! Redirecting to login page...');
-        setTimeout(() => {
-          setSuccessMessage(null);
-          navigate('/');
-        }, 1000); // Adjust the timeout as needed
-        return;
-      } else {
-        setErrorMessage(data.message || 'Sign in failed'); // Set error message from response data if available
+
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
       }
 
-      // Redirect user to another page on successful signup
-      // Example: history.push('/login');
+      if (res.ok) {
+        dispatch(signInSuccess('Sign in successful! Redirecting to the homepage...'));
+        setTimeout(() => {
+          dispatch(signInSuccess(null));
+          navigate('/');
+        }, 1000);
+        return;
+      } else {
+        dispatch(signInFailure(data.message || 'Sign in failed'));
+      }
     } catch (error) {
-      console.error('Error:', error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -79,7 +79,6 @@ export default function SignIn() {
               </Alert>
             }
             <div className="">
-             
               <div className="w-full mt-1">
                 <Label value="Your Email" />
                 <TextInput id="email" name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
@@ -108,9 +107,9 @@ export default function SignIn() {
               </Link>
             </p>
           </div>
-          {errorMessage && // Corrected variable name
+          {error &&
             <Alert className="mt-4" color="failure">
-              {errorMessage} {/* Corrected variable name */}
+              {error}
             </Alert>
           }
         </div>
