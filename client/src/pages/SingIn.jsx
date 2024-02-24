@@ -45,16 +45,10 @@ export default function SignIn() {
         dispatch(signInFailure(data.message));
       }
 
-      if (res.ok) {
-        dispatch(signInSuccess('Sign in successful! Redirecting to the homepage...'));
-        setTimeout(() => {
-          dispatch(signInSuccess(null));
-          navigate('/');
-        }, 1000);
-        return;
-      } else {
-        dispatch(signInFailure(data.message || 'Sign in failed'));
-      }
+      if (res.ok){
+        dispatch(signInSuccess(data));
+        navigate('/dashboard');
+    }
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
