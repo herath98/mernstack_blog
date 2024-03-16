@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.router.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ const app = express();
 
 // Use express.json() middleware for parsing JSON
 app.use(express.json());
+app.use(cookieParser());
 
 // Start the server
 const PORT = process.env.PORT || 3000;
