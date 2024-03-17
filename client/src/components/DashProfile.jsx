@@ -8,14 +8,16 @@ import { Alert, Button, Modal, TextInput } from 'flowbite-react';
 import {signOutSuccess ,updateStart, updateSuccess, updateFailure , deleteUserStart, deleteUserSuccess, deleteUserFailure} from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
-  const { currentUser,error } = useSelector((state) => state.user);
+  const { currentUser,error , loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imagefileUploadprogress, setImagefileUploadprogress] = useState(0);
   const [imageUploadError, setImageUploadError] = useState('');
+  const [imageFileUplading, setImageFileUplading] = useState(false);
   const [imageUploadSuccess, setImageUploadSuccess] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
@@ -180,7 +182,16 @@ export default function DashProfile() {
         <TextInput type='text' id='username' name='username' placeholder='username' defaultValue={currentUser.username} onChange={handleChange} />
         <TextInput type='email' id='email' name='email' placeholder='email' defaultValue={currentUser.email} onChange={handleChange} />
         <TextInput type='password' id='password' name='password' placeholder='************' onChange={handleChange} />
-        <Button type='submit' gradientDuoTone='purpleToBlue'>Update</Button>
+        <Button type='submit' gradientDuoTone='purpleToBlue' outline disabled={loading || imageFileUplading }> 
+        {loading ? 'Updating...' : 'Update Profile'}
+        </Button>
+        {
+        currentUser.isAdmin && 
+        <Link to={'/create-post'}>
+        <Button type='button' gradientDuoTone='purpleToBlue' className='w-full'>Create Post
+        </Button>
+        </Link>
+        }
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span onClick={() => setShowModel(true)} className='hover:underline cursor-pointer'>Delete Account</span>
