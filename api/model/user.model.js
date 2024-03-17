@@ -23,7 +23,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://static.thenounproject.com/png/1559146-200.png',
     }, 
-}, { timestamps: true }); // Enable timestamps to track creation and update times
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+}, 
+{ timestamps: true }); // Enable timestamps to track creation and update times
 
 // Create a model from the schema
 const User = mongoose.model('User', userSchema);
