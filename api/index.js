@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {

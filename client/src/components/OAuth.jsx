@@ -28,7 +28,7 @@ function OAuth() {
                     name: resultsFromGoogle.user.displayName,
                     email: resultsFromGoogle.user.email,
                     googlePhotoUrl: resultsFromGoogle.user.photoURL,
-                })
+                }),
             })
             const data = await res.json();
             if (res.ok){

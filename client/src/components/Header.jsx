@@ -62,7 +62,7 @@ export default function Header() {
                         label={
                             <Avatar
                                 alt="user avatar"
-                                img={currentUser.profilePicture} />
+                                img={currentUser.profilePicture} rounded />
                         }
                     >
                         <Dropdown.Header >

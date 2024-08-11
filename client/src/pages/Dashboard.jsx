@@ -3,24 +3,43 @@ import { useLocation } from "react-router-dom";
 import DashSlidebar from "../components/DashSlidebar";
 import DashProfile from "../components/DashProfile";
 
+/**
+ * Dashboard component
+ * 
+ * This component renders the dashboard page with a sidebar and a profile section.
+ * It uses the useLocation hook to get the current location and the useEffect hook
+ * to update the tab state whenever the location search changes.
+ * 
+ * @returns {JSX.Element} The rendered dashboard component
+ */
 export default function Dashboard() {
+  // Get the current location using the useLocation hook
   const location = useLocation();
+
+  // State hook to store the current tab
   const [tab , setTab] = useState('');
+
+  // UseEffect hook to update the tab state whenever the location search changes
   useEffect (()=>{
+    // Get the tab value from the location search
     const urlprams = new URLSearchParams(location.search);
     const tabFormUrl= urlprams.get('tab');
+
+    // If tab value exists, update the tab state
     if (tabFormUrl) {
       setTab(tabFormUrl);
     }
   }, [location.search]);
+
   return (
     <div className="min-h-screen  flex flex-col md:flex-row ">
       <div className="md:w-56" >
-          {/* Slidebar */}
+          {/* Render the sidebar */}
           <DashSlidebar />
       </div>
-          {/* profile... */}
+          {/* Render the profile section if the tab is 'profile' */}
           {tab === 'profile' && <DashProfile/>}
     </div>
   )
 }
+
