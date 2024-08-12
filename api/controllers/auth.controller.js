@@ -39,6 +39,7 @@ export const signup = async (req, res, next) => {
 
         // Send a success response
         res.status(201).json({ message: 'Signup successful!' });
+        
     } catch (error) {
         // If there is an error, pass it to the next middleware
         next(error);
@@ -82,7 +83,7 @@ export const signin = async (req, res, next) => {
         const { password: pass, ...rest } = validUser._doc;
 
         // Send a success response with the token and user data
-        res.status(200).cookie('token', token, { httpOnly: true }).json(rest);
+        res.status(200).cookie('access_token', token, { httpOnly: true }).json(rest);
     } catch (error) {
         // If there is an error, pass it to the next middleware
         next(error);
@@ -111,7 +112,7 @@ export const google = async (req, res, next) => {
 
         // If user exists, sign them in
         if (user) {
-            // Generate a JWT token with user id and admin status
+            // Generate a JWT token with user id  status
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
             // Exclude password from response 

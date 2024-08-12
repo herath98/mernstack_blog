@@ -15,10 +15,9 @@ export default function DashProfile() {
   const dispatch = useDispatch();
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
-  const [imagefileUploadprogress, setImagefileUploadprogress] = useState(0);
-  const [imageUploadError, setImageUploadError] = useState('');
+  const [imagefileUploadprogress, setImagefileUploadprogress] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState(null);
   const [imageFileUplading, setImageFileUplading] = useState(false);
-  const [imageUploadSuccess, setImageUploadSuccess] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
   const [showModel, setShowModel] = useState(false);
@@ -41,55 +40,95 @@ export default function DashProfile() {
     }
   }, [imageFile]);
 
+  /**
+   * Function to upload image to Firebase Storage
+   */
   const uploadImage = async () => {
-    setImageUploadSuccess(true);
-    setImageUploadError('');
+    // Set uploading status to true and clear error message
+    setImageFileUplading(true);
+    setImageUploadError(null);
+
+    // Get Firebase storage reference
     const storage = getStorage(app);
+    
+    // Generate unique file name using current timestamp and image file name
     const fileName = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, fileName);
+
+    // Create upload task
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    // Monitor upload task progress
     uploadTask.on(
       'state_changed',
       (snapshot) => {
+        // Calculate upload progress and update state
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setImagefileUploadprogress(progress.toFixed(0));
       },
       (error) => {
+        // Handle upload error
         setImageUploadError('Error while uploading image. File must be less than 2MB.');
         setImageFile(null);
         setImageFileUrl(null);
-        setImageUploadSuccess(false);
+        setImageFileUplading(false);
       },
       () => {
+        // Handle successful upload
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // Update state with image URL and set uploading status to false
           setImageFileUrl(downloadURL);
           setFormData({ ...formData, profilePicture: downloadURL });
-          setImageUploadSuccess(false);
+          setImageFileUplading(false);
         });
       }
     );
   };
+  
 
+  /**
+   * Handles the change event of form inputs and updates the form data state.
+   * @param {Object} e - The event object.
+   * @returns {void}
+   */
   const handleChange = (e) => {
+    // Spread the existing form data and update the specific field 
+    // with the new value from the event target.
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
 
+
+  /**
+   * Handles the form submission for updating the user's profile.
+   *
+   * @param {Event} e - The form submission event.
+   * @return {Promise<void>} - A promise that resolves when the form submission is handled.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Reset success and error states
     setUpdateUserSuccess(null);
     setUpdateUserError(null);
 
+    // Check if there are any changes to update
     if (Object.keys(formData).length === 0) {
       setUpdateUserError('No changes to update');
       return;
     }
+
+    // Check if an image is being uploaded
     if (imageUploadSuccess) {
       setUpdateUserError('Please wait while image is being uploaded.');
       return;
     }
+
     try {
+      // Dispatch the update start action
       dispatch(updateStart());
+
+      // Send a PUT request to the server to update the user's profile
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: 'PUT',
         headers: {
@@ -97,18 +136,30 @@ export default function DashProfile() {
         },
         body: JSON.stringify(formData),
       });
+
+      // Parse the response data
       const data = await res.json();
+
+      // Handle success response
       if (res.ok) {
+        // Dispatch the update success action
         dispatch(updateSuccess(data));
+
+        // Set success message
         setUpdateUserSuccess("Profile Updated Successfully");
       } else {
+        // Dispatch the update failure action
         dispatch(updateFailure(data.message));
+
+        // Set error message
         setUpdateUserError(data.message);
       }
     } catch (error) {
+      // Dispatch the update failure action
       dispatch(updateFailure(error.message));
     }
   };
+ 
   const handleDelete = async () => {
     setShowModel(false);
     try {
