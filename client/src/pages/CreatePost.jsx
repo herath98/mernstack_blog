@@ -21,7 +21,7 @@ export default function CreatePost() {
                 <Button type='button' gradientDuoTone='purpleToBlue' size='sm' outline>Upload Image</Button>
             </div>
             <ReactQuill theme='snow' placeholder='write something...' className='h-72 mb-12' required/>
-            <Button type='submit' className='bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 '>Submit</Button>
+            <Button type='submit' className='bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 '>Publish</Button>
         </form>
     </div>
 

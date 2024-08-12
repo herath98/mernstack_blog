@@ -18,6 +18,7 @@ export default function DashProfile() {
   const [imagefileUploadprogress, setImagefileUploadprogress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [imageFileUplading, setImageFileUplading] = useState(false);
+  const [imageUploadSuccess, setImageUploadSuccess] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
   const [showModel, setShowModel] = useState(false);

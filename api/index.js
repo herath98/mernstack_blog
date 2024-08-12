@@ -3,19 +3,21 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.router.js';
+import postRoutes from './routes/post.router.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO)
     .then(() => {
         console.log("MongoDB is connected");
     })
     .catch((err) => {
         console.error(err);
     });
+
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.listen(PORT, () => {
 // Use routes
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
 
 // Error handling middleware to catch and respond to any errors in the application
 app.use((err, req, res, next) => {
