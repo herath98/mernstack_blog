@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import DashSlidebar from "../components/DashSlidebar";
 import DashProfile from "../components/DashProfile";
 import Dashpost from "../components/Dashpost";
+import DashUsers from "../components/DashUsers";
 
 /**
  * Dashboard component
@@ -18,17 +19,17 @@ export default function Dashboard() {
   const location = useLocation();
 
   // State hook to store the current tab
-  const [tab , setTab] = useState('');
+  const [tab, setTab] = useState('');
 
   // UseEffect hook to update the tab state whenever the location search changes
-  useEffect (()=>{
+  useEffect(() => {
     // Get the tab value from the location search
     const urlprams = new URLSearchParams(location.search);
-    const tabFormUrl= urlprams.get('tab');
+    const tabFormUrl = urlprams.get('tab');
 
     // If tab value exists, update the tab state
-    
-    
+
+
     if (tabFormUrl) {
       setTab(tabFormUrl);
     }
@@ -37,12 +38,14 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen  flex flex-col md:flex-row ">
       <div className="md:w-56" >
-          {/* Render the sidebar */}
-          <DashSlidebar />
+        {/* Render the sidebar */}
+        <DashSlidebar />
       </div>
-          {/* Render the profile section if the tab is 'profile' */}
-          {tab === 'profile' && <DashProfile/>}
-          {tab === 'posts' && <Dashpost/>}
+      {/* Render the profile section if the tab is 'profile' */}
+      {tab === 'profile' && <DashProfile />}
+      {tab === 'posts' && <Dashpost />}
+      {/* users */}
+      {tab === 'users' && <DashUsers />}
     </div>
   )
 }
