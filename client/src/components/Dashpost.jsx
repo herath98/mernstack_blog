@@ -48,7 +48,6 @@ export default function DashPosts() {
       console.log(error.message);
     }
   };
-
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
@@ -56,20 +55,25 @@ export default function DashPosts() {
         `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
-      const data = await res.json();
+  
       if (!res.ok) {
-        console.log(data.message);
+        const data = await res.json();
+        console.log(data.message || 'Failed to delete the post.');
       } else {
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
       }
     } catch (error) {
-      console.log(error.message);
+      console.log('Error deleting post:', error.message);
     }
   };
+  
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
