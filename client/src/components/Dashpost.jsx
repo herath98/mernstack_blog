@@ -97,7 +97,7 @@ export default function DashPosts() {
                       <img
                         src={post.image}
                         alt={post.title}
-                        className='w-20 h-10 object-cover bg-gray-500'
+                        className='w-12 h-12 rounded-full object-cover bg-gray-500'
                       />
                     </Link>
                   </Table.Cell>
