@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 export default function Dashpost() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
+  const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -15,9 +16,12 @@ export default function Dashpost() {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          if(data.posts.length < 9){
+            setShowMore(false);
+          }
         }
         console.log(data);
-      }
+      } 
       catch (error) {
         console.error('Error:', error);
       }
@@ -26,6 +30,24 @@ export default function Dashpost() {
       fetchPosts();
     }
   }, [currentUser._id]);
+
+  const handleShowMore= async ()=>{
+    const startIndex =userPosts.length;
+    try{
+      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts([...userPosts,...data.posts]);
+        if(data.posts.length < 9){
+          setShowMore(false);
+        }
+      }
+      console.log(data);
+    } 
+    catch(error){
+      console.error('Error:', error);
+    }
+  }
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar-none  scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700
     dark:scrollbar-thumb-slate-500'>
@@ -68,6 +90,13 @@ export default function Dashpost() {
             ))}
 
           </Table>
+          {
+            showMore && (
+             
+                <button onClick={handleShowMore} className='w-full text-teal-500 self-center text-sm'>Show More</button>
+            
+            )
+          }
         </>
       ) : (
         <h2>No posts found</h2>
