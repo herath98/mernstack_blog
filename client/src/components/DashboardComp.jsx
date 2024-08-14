@@ -23,6 +23,8 @@ export default function DashboardComp() {
     const { currentUser } = useSelector((state) => state.user);
     const [userDates, setUserDates] = useState([]);
     const [userCounts, setUserCounts] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const [report, setReport] = useState({});
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -63,29 +65,43 @@ export default function DashboardComp() {
                 console.log(error.message);
             }
         };
-        if (currentUser.isAdmin) {
-            fetchUsers();
-            fetchPosts();
-            fetchComments();
-        }
-        const fetchUsersByDate = async () => {
+        const fetchAllUsers = async () => {
             try {
-              const res = await fetch('/api/user/getusersbydate');
+              const res = await fetch('/api/user/getusers?limit=5');
               const data = await res.json();
               if (res.ok) {
-                const dates = data.map(item => item._id); // Extract dates
-                const counts = data.map(item => item.count); // Extract counts
-                setUserDates(dates);
-                setUserCounts(counts);
+                setAllUsers(data.users);
+                generateReport(data.users);
               }
             } catch (error) {
               console.log(error.message);
             }
           };
-      
-          if (currentUser.isAdmin) {
+        if (currentUser.isAdmin) {
+            fetchUsers();
+            fetchPosts();
+            fetchComments();
+            fetchAllUsers();
+        }
+        const fetchUsersByDate = async () => {
+            try {
+                const res = await fetch('/api/user/getusersbydate');
+                const data = await res.json();
+                if (res.ok) {
+                    const dates = data.map(item => item._id); // Extract dates
+                    const counts = data.map(item => item.count); // Extract counts
+                    setUserDates(dates);
+                    setUserCounts(counts);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        
+
+        if (currentUser.isAdmin) {
             fetchUsersByDate();
-          }
+        }
 
 
         // Initialize ApexChart
@@ -140,7 +156,7 @@ export default function DashboardComp() {
                 },
             ],
             xaxis: {
-                categories:userDates,
+                categories: userDates,
                 labels: {
                     show: false,
                 },
@@ -161,6 +177,39 @@ export default function DashboardComp() {
             chart.render();
         }
     }, [currentUser]);
+
+    const generateReport = (allUsers) => {
+        const report = {
+          totalUsers: allUsers.length,
+          activeUsers: allUsers.filter(user => user.role === 'active').length,
+          inactiveUsers: allUsers.filter(user => user.role === 'inactive').length
+        };
+        setReport(report);
+      };
+    
+      const handleDownload = () => {
+        const csvData = `id,username,email,create date\n` +
+          allUsers.map(user => {
+            return {
+              userId: user._id,
+              name: user.username,
+              email: user.email,
+              joinedDate: new Date(user.createdAt).toLocaleDateString()
+            };
+          }).map((row, index) => {
+            const csvRow = Object.keys(row).map(key => `"${row[key]}"`);
+            return `${csvRow.join(',')}\n`;
+          }).join('');
+      
+        const csvBlob = new Blob([csvData], { type: 'text/csv' });
+        const csvUrl = URL.createObjectURL(csvBlob);
+        const csvLink = document.createElement('a');
+        csvLink.href = csvUrl;
+        csvLink.download = 'user_report.csv';
+        csvLink.click();
+        URL.revokeObjectURL(csvUrl);
+      };
+      
     return (
         <div className='p-3 md:mx-auto'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 justify-center'>
@@ -340,7 +389,8 @@ export default function DashboardComp() {
                                         <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a></li>
                                     </ul>
                                 </div>
-                                <a
+                                <a  
+                                    onClick={handleDownload}
                                     href="#"
                                     className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
                                     Users Report
