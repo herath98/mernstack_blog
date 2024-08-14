@@ -7,6 +7,6 @@ const routers = express.Router();
 
 routers.post('/create',verifyToken,create);
 routers.get('/getposts',getPosts);
-routers.delete('/deletepost/:posyId/:userId',verifyToken,deletepost)
+routers.delete('/deletepost/:postId/:userId',verifyToken,deletepost)
 routers.put('/updatepost/:postId/:userId', verifyToken, updatepost)
 export default routers; 
