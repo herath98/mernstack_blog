@@ -149,4 +149,23 @@ export const getUser = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  };  
+  }; 
+  
+export const usersByDate =  async (req, res) => {
+    try {
+      // Group users by date and get the count for each date
+      const usersByDate = await User.aggregate([
+        {
+          $group: {
+            _id: { $dateToString: { format: "%d %B", date: "$createdAt" } },
+            count: { $sum: 1 },
+          },
+        },
+        { $sort: { _id: 1 } }, // Sort by date
+      ]);
+  
+      res.json(usersByDate);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
