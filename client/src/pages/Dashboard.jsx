@@ -5,6 +5,7 @@ import DashProfile from "../components/DashProfile";
 import Dashpost from "../components/Dashpost";
 import DashUsers from "../components/DashUsers";
 import DashComments from "../components/DashComments";
+import DashboardComp from "../components/DashboardComp";
 
 /**
  * Dashboard component
@@ -49,6 +50,8 @@ export default function Dashboard() {
       {tab === 'users' && <DashUsers />}
          {/* comments  */}
          {tab === 'comments' && <DashComments />}
+         {/* dashboard comp */}
+      {tab === 'dash' && <DashboardComp />}
     </div>
   )
 }
