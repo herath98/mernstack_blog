@@ -6,9 +6,11 @@ import myprofile from '../assets/myp.png'
 import { FaLinkedin, FaGithubSquare, } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import VideoPopup from "../components/VideoPopup";
+import ProjectCard from '../components/ProjectCard';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [project,setProject] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
 
@@ -18,7 +20,14 @@ export default function Home() {
       const data = await res.json();
       setPosts(data.posts);
     };
+    const fetchProject = async () => {
+      const res = await fetch('/api/project/getprojectrecent');
+      const data = await res.json();
+      setProject(data.project);
+    
+    };
     fetchPosts();
+    fetchProject();
   }, []);
   const handleVideoClick = () => {
     setShowPopup(true);
@@ -52,13 +61,13 @@ export default function Home() {
               <p className="mt-2">I’m Full Stack Developer</p>
               <div className="mt-4">
                 <div className="flex justify-center space-x-4">
-                  <a href="#" className="">
+                  <a href="www.linkedin.com/in/harsha-udayanga-herath-773a07224" className="">
                     <FaLinkedin />
                   </a>
-                  <a href="#" className="">
+                  <a href="https://github.com/herath98" className="">
                     <FaGithubSquare />
                   </a>
-                  <a href="#" className="">
+                  <a href="mailto:harshaudayanga401@gmail.com" className="">
                     <MdEmail />
                   </a>
                 </div>
@@ -111,6 +120,24 @@ export default function Home() {
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4'>
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
+              ))}
+            </div>
+            <Link
+              to={'/search'}
+              className='text-lg text-teal-500 hover:underline text-center'
+            >
+              View all posts
+            </Link>
+          </div>
+        )}
+      </div>
+      <div className='max-w-7xl mx-auto p-3 flex md:mt-20 flex-col gap-8 py-7'>
+        {project && project.length > 0 && (
+          <div className='flex flex-col gap-6'>
+            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4'>
+              {project.map((post) => (
+                <ProjectCard key={post._id} post={post} />
               ))}
             </div>
             <Link
