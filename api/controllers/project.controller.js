@@ -76,13 +76,13 @@ export const getproject = async (req, res, next) => {
         }
 
         // Retrieve the posts from the database based on the query object
-        const posts = await Post.find(query)
+        const posts = await Project.find(query)
             .sort({ createdAt: sortDirection }) // Sort the posts by createdAt in the specified direction
             .skip(startIndex) // Skip the specified number of posts
             .limit(limit); // Limit the number of posts returned
 
         // Retrieve the total number of posts from the database
-        const totalPosts = await Post.countDocuments();
+        const totalPosts = await Project.countDocuments();
 
         // Calculate the date one month ago
         const now = new Date();
@@ -115,7 +115,7 @@ export const deleteproject = async (req, res, next) => {
       return next(errorHandler(403, 'You are not allowed to delete this post'));
     }
     try {
-      await Post.findByIdAndDelete(req.params.postId);
+      await Project.findByIdAndDelete(req.params.postId);
       res.status(200).json('The post has been deleted');
     } catch (error) {
       next(error);
@@ -127,7 +127,7 @@ export const updateproject = async (req, res, next) => {
       return next(errorHandler(403, 'You are not allowed to update this post'));
     }
     try {
-      const updatedPost = await Post.findByIdAndUpdate(
+      const updatedPost = await Project.findByIdAndUpdate(
         req.params.postId,
         {
           $set: {

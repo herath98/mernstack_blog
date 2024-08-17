@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" bg-gradient-to-b from-blue-900 to-transparent flex items-center justify-center">
-        <div className="bg-gradient-to-r from-gray-200 via-cyan-200 to-violet-800 p-8 rounded-xl shadow-lg w-11/12  mb-5 text-white">
+        <div className="bg-gradient-to-r from-amber-400 via-orange-400 to-violet-800 p-8 rounded-xl shadow-lg w-11/12  mb-5 text-white">
           <div className="grid grid-cols-1 md:grid-cols-12 items-center">
             <div className="bg-cyan-900 md:col-span-4 justify-items-center text-center xl:col-span-3 p-6 rounded-lg mb-8 md:mb-0">
               <img

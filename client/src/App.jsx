@@ -17,6 +17,8 @@ import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
 import CreateProject from './pages/CreateProject'
+import ProjectPage from './pages/ProjectPage'
+import SearchProject from './pages/SearchProject'
 
 function App() {
 
@@ -32,6 +34,7 @@ function App() {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/sign-in' element={<SingIn />} />
         <Route path='/search' element={<Search />} />
+        <Route path='/searchproject' element={<SearchProject />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
@@ -43,6 +46,7 @@ function App() {
 
         <Route path='project' element={<Project />} />
         <Route path='/post/:postSlug' element={<PostPage />} />
+        <Route path='/project/:projectSlug' element={<ProjectPage />} />
 
       </Routes>
       <Footer />
