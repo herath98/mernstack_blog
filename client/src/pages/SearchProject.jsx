@@ -2,6 +2,7 @@ import { Button, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PostCard from '../components/PostCard';
+import ProjectCard from '../components/ProjectCard';
 
 export default function SearchProject() {
     const [sidebarData, setSidebarData] = useState({
@@ -132,7 +133,7 @@ export default function SearchProject() {
             </div>
             <div className='w-full'>
                 <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5'>
-                    Posts results:
+                    Project results:
                 </h1>
                 <div className='p-7 flex flex-col gap-4'>
                     {!loading && posts.length === 0 && (
@@ -144,7 +145,7 @@ export default function SearchProject() {
                             posts &&
                             posts.map((post) => (
                                 <div key={post._id}>
-                                    <PostCard post={post} />
+                                    <ProjectCard post={post} />
                                 </div>
                             ))}
                     </div>
