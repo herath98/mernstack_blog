@@ -82,7 +82,7 @@ export default function SignIn() {
                 <Label value="Your Password" />
                 <TextInput id="password" name="password" type="password" placeholder="*******************" onChange={handleChange} />
               </div>
-              <Button className="w-full mt-4 bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 "    type="submit" disabled={loading}>
+              <Button className="w-full mt-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."    type="submit" disabled={loading}>
                 {loading ? (
                   <>
                     <Spinner

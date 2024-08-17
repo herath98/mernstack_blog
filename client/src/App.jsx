@@ -16,6 +16,7 @@ import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
+import CreateProject from './pages/CreateProject'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/create-project' element={<CreateProject />} />
           <Route path='/update-post/:postId' element={<UpdatePost />} />
         </Route>
 

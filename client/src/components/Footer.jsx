@@ -60,7 +60,7 @@ export default function FooterSec() {
                     </div>
                 </div>
                 <Footer.Divider />
-                <div className="flex justify-center gap-5 w-full  sm:items-center sm:justify-between">
+                <div className="flex justify-center gap-5 w-1/4  sm:items-center sm:justify-between">
                    
                     <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsFacebook}/>
                     <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsTwitter}/>
@@ -74,9 +74,9 @@ export default function FooterSec() {
                 <div className='mt-2'>
                 <Footer.Copyright
                         href="#"
-                        by="Stars Blog"
+                        by="Stars Blog @All rights reserved by Harsha Udayanga "
                         year={new Date().getFullYear()}
-                    />
+                    > <p>All</p> </Footer.Copyright>
                 </div>
             </div>
         </Footer>

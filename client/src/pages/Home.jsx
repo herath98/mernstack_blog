@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </div>
       <div className=" bg-gradient-to-b from-blue-900 to-transparent flex items-center justify-center">
-        <div className="bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 p-8 rounded-xl shadow-lg w-11/12  mb-5 text-white">
+        <div className="bg-gradient-to-r from-gray-200 via-cyan-200 to-violet-800 p-8 rounded-xl shadow-lg w-11/12  mb-5 text-white">
           <div className="grid grid-cols-1 md:grid-cols-12 items-center">
             <div className="bg-cyan-900 md:col-span-4 justify-items-center text-center xl:col-span-3 p-6 rounded-lg mb-8 md:mb-0">
               <img
@@ -69,14 +69,14 @@ export default function Home() {
                   <p>City: Nugegoda</p>
                   <p>Age: 26</p>
                 </div>
-                <button onClick={handleDownloadCV} className="mt-4 bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 text-white px-4 py-2 rounded-lg">
+                <button onClick={handleDownloadCV} className="mt-4 bg-white text-black hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... px-4 py-2 rounded-lg">
                   Contact
                 </button>
               </div>
             </div>
             <div className="md:ml-8 md:col-span-8 xl:col-span-9">
               <h1 className="text-2xl md:text-4xl xl:text-8xl w-10/12  font-bold mb-4"><span className='bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 rounded-xl px-2 '> Stars</span>Blog Welcome to the My Personal Blog </h1>
-              <button onClick={handleVideoClick} className=" bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 text-white px-6 py-3 rounded-lg font-bold mb-6">
+              <button onClick={handleVideoClick} className=" bg-cyan-900 text-white px-6 py-3 rounded-lg font-bold mb-6 hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
                 Video Resume
               </button>
               <div className="flex flex-col md:flex-row md:mb-[-300px] xl:mb-[-120px] gap-5 md:space-x-1 xl:space-x-8 ">
