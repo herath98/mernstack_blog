@@ -1,5 +1,6 @@
 import { Footer } from 'flowbite-react'
 import { BsGithub, BsLinkedin, BsFacebook, BsTwitter, BsInstagram ,BsYoutube,BsFillEnvelopeFill} from 'react-icons/bs'
+import { MdEmail } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
 export default function FooterSec() {
@@ -60,14 +61,14 @@ export default function FooterSec() {
                     </div>
                 </div>
                 <Footer.Divider />
-                <div className="flex justify-center gap-5 w-1/4  sm:items-center sm:justify-between">
+                <div className="flex justify-center gap-5 md:w-1/4  sm:items-center sm:justify-between">
                    
-                    <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsFacebook}/>
-                    <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsTwitter}/>
+                    
+                    <Footer.Icon href="mailto:harshaudayanga401@gmail.com" target="_blank" rel='noopener noreferrer' icon= {MdEmail }/>
                     <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsInstagram}/>
-                    <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsLinkedin}/>
-                    <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsGithub}/>
-                    <Footer.Icon href="#" target="_blank" rel='noopener noreferrer' icon={BsYoutube}/>
+                    <Footer.Icon href="www.linkedin.com/in/harsha-udayanga-herath-773a07224" target="_blank" rel='noopener noreferrer' icon={BsLinkedin}/>
+                    <Footer.Icon href="https://github.com/herath98" target="_blank" rel='noopener noreferrer' icon={BsGithub}/>
+                   
                     
 
                 </div>

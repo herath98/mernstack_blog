@@ -89,17 +89,17 @@ export default function Home() {
                 Video Resume
               </button>
               <div className="flex flex-col md:flex-row md:mb-[-300px] xl:mb-[-120px] gap-5 md:space-x-1 xl:space-x-8 ">
-                <div className='bg-cyan-900 text-center w-[300px] p-4 lg:p-8 rounded-xl '>
+                <div className='bg-cyan-900 text-center  sm:w-[300px] p-4 lg:p-8 rounded-xl '>
                   <h3 className="text-2xl font-bold">25+</h3>
                   <p>Completed Projects</p>
                   <Link to='/project' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View All Projects</Link>
                 </div>
-                <div className='bg-cyan-900 text-center p-4 w-[300px] lg:p-8 rounded-xl '>
+                <div className='bg-cyan-900 text-center p-4 sm:w-[300px] lg:p-8 rounded-xl '>
                   <h3 className="text-2xl font-bold">50 +</h3>
                   <p>Blog Post</p>
                   <Link  to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View All Post</Link>
                 </div>
-                <div className='bg-cyan-900 text-center p-4 w-[300px] lg:p-8 rounded-xl '>
+                <div className='bg-cyan-900 text-center p-4 sm:w-[300px] lg:p-8 rounded-xl '>
                   <h3 className="text-2xl font-bold">14 +</h3>
                   <p>Blog Users</p>
                 </div>

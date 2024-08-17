@@ -87,8 +87,8 @@ export default function SearchProject() {
     return (
         <div className='flex flex-col'>
             <div className='p-8 border-gray-500'>
-                <form className='flex flex-row justify-end gap-4' onSubmit={handleSubmit}>
-                    <div className='flex gap-4 justify-between'>
+                <form className=' space-y-2 md:space-y-0 md:flex md:flex-row justify-end gap-4' onSubmit={handleSubmit}>
+                    <div className='flex gap-4  justify-between'>
                         <label className='whitespace-nowrap font-semibold'>
                             Search Term:
                         </label>
@@ -96,17 +96,18 @@ export default function SearchProject() {
                             placeholder='Search...'
                             id='searchTerm'
                             type='text'
+                            className='justify-end'
                             value={sidebarData.searchTerm}
                             onChange={handleChange}
                         />
                     </div>
-                    <div className='flex justify-items-start gap-2'>
+                    <div className='flex justify-between gap-2'>
                         <label className='font-semibold'>Sort:</label>
                         <Select
                             onChange={handleChange}
                             value={sidebarData.sort}
                             id='sort'
-                            className='form-select'
+                            className='form-select justify-end'
                         >
                             <option value='desc'>Latest</option>
                             <option value='asc'>Oldest</option>
@@ -124,7 +125,7 @@ export default function SearchProject() {
                             onChange={handleChange}
                         />
                     </div>
-                    <Button type='submit' outline gradientDuoTone='purpleToPink'>
+                    <Button type='submit'  outline gradientDuoTone='purpleToPink'>
                         Apply Filters
                     </Button>
                 </form>

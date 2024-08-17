@@ -1,7 +1,10 @@
+import SearchProject from "./SearchProject";
 
 
 export default function Project() {
   return (
-    <div>Project</div>
+    <div>
+      <SearchProject  />
+    </div>
   )
 }

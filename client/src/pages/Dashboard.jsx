@@ -42,7 +42,9 @@ export default function Dashboard() {
       <div className="md:w-56" >
         {/* Render the sidebar */}
         <DashSlidebar />
+        
       </div>
+     
       {/* Render the profile section if the tab is 'profile' */}
       {tab === 'profile' && <DashProfile />}
       {tab === 'posts' && <Dashpost />}
