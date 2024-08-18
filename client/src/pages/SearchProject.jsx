@@ -140,7 +140,7 @@ export default function SearchProject() {
                         <p className='text-xl text-gray-500'>No posts found.</p>
                     )}
                     {loading && <p className='text-xl text-gray-500'>Loading...</p>}
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3 2xl:grid-cols-4'>
                         {!loading &&
                             posts &&
                             posts.map((post) => (

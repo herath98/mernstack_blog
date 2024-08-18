@@ -84,7 +84,7 @@ export default function Home() {
               </div>
             </div>
             <div className="md:ml-8 md:col-span-8 xl:col-span-9">
-              <h1 className="text-2xl md:text-4xl xl:text-8xl w-10/12  font-bold mb-4"><span className='bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 rounded-xl px-2 '> Stars</span>Blog Welcome to the My Personal Blog </h1>
+              <h1 className="text-2xl md:text-4xl xl:text-8xl w-10/12  font-bold mb-4"> Welcome to The My Personal Blog </h1>
               <button onClick={handleVideoClick} className=" bg-cyan-900 text-white px-6 py-3 rounded-lg font-bold mb-6 hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
                 Video Resume
               </button>
@@ -108,7 +108,9 @@ export default function Home() {
           </div>
         </div>
         {showPopup && (
+          <div className=' overflow-hidden  w-48 h-48'>
           <VideoPopup close={() => setShowPopup(false)} videoID="https://firebasestorage.googleapis.com/v0/b/star-blog-3d0dd.appspot.com/o/invideo-ai-480%20From%20Aspiring%20Developer%20to%20Full-Stack%20Pr%202024-08-10%20(1).mp4?alt=media&token=cda989d6-9c25-4450-94b0-9c55fc00045d" />
+        </div>
         )}
       </div>
      

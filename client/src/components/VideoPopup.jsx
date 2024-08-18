@@ -1,5 +1,5 @@
 "use client";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import useClickOutside from "../Utility/useClickOutside";
 
@@ -7,12 +7,30 @@ const VideoPopup_ = ({ close, videoID }) => {
   let domNode = useClickOutside(() => {
     close(false);
   });
+  const [widthsize, setWidthsize] = useState('');
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setWidthsize(300);
+      } else {
+        setWidthsize(700);
+      }
+    };
+
+    handleResize(); // Call initially to set the correct size
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <Fragment>
+   <>
       <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => close(false)}></div>
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div ref={domNode} className=" p-6 rounded-lg shadow-lg">
+        <div ref={domNode} className="p-6 rounded-lg shadow-lg">
           <button
             title="Close"
             type="button"
@@ -21,18 +39,18 @@ const VideoPopup_ = ({ close, videoID }) => {
           >
             ×
           </button>
-          <ReactPlayer url={videoID} playing={true} controls />
+          <ReactPlayer url={videoID} playing={true} controls width={widthsize} />
         </div>
       </div>
-    </Fragment>
+   </>
   );
 };
 
 const VideoPopup = ({ close, videoID }) => {
   return (
-    <Fragment>
+ 
       <VideoPopup_ close={close} videoID={videoID} />
-    </Fragment>
+  
   );
 };
 
