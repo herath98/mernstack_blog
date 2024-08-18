@@ -76,7 +76,7 @@ export const getproject = async (req, res, next) => {
         }
 
         // Retrieve the posts from the database based on the query object
-        const posts = await Project.find(query)
+        const projects = await Project.find(query)
             .sort({ createdAt: sortDirection }) // Sort the posts by createdAt in the specified direction
             .skip(startIndex) // Skip the specified number of posts
             .limit(limit); // Limit the number of posts returned
@@ -93,13 +93,13 @@ export const getproject = async (req, res, next) => {
         );
 
         // Retrieve the number of posts created in the last month from the database
-        const lastMonthPosts = await Post.countDocuments({
+        const lastMonthPosts = await Project.countDocuments({
             createdAt: { $gte: oneMonthAgo } // Filter for posts created after one month ago
         });
 
         // Return the posts, totalPosts, and lastMonthPosts as a JSON response
         res.status(200).json({
-            posts,
+            projects,
             totalPosts,
             lastMonthPosts
         });
@@ -122,13 +122,16 @@ export const deleteproject = async (req, res, next) => {
     }
   };
 
-export const updateproject = async (req, res, next) => {
-    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+  export const updateproject = async (req, res, next) => {
+    // Check if the user is an admin or the owner of the post
+    if (!req.user.isAdmin && req.user.id !== req.params.userId) {
       return next(errorHandler(403, 'You are not allowed to update this post'));
     }
+  
     try {
+      // Update the project and return the new version
       const updatedPost = await Project.findByIdAndUpdate(
-        req.params.postId,
+        req.params.projectId,
         {
           $set: {
             title: req.body.title,
@@ -139,11 +142,18 @@ export const updateproject = async (req, res, next) => {
         },
         { new: true }
       );
+  
+      // Check if the project exists
+      if (!updatedPost) {
+        return next(errorHandler(404, 'Project not found'));
+      }
+  
       res.status(200).json(updatedPost);
     } catch (error) {
-      next(error);
+      next(error); // Handle unexpected errors
     }
-  };  
+  };
+  
 
   export const getprojectrecent = async (req, res, next) => {
     try {
@@ -203,7 +213,7 @@ export const updateproject = async (req, res, next) => {
         );
 
         // Retrieve the number of posts created in the last month from the database
-        const lastMonthPosts = await Post.countDocuments({
+        const lastMonthPosts = await Project.countDocuments({
             createdAt: { $gte: oneMonthAgo } // Filter for posts created after one month ago
         });
 

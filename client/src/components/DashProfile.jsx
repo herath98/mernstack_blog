@@ -5,13 +5,13 @@ import { app } from '../firebase/firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Alert, Button, Modal, TextInput } from 'flowbite-react';
-import {signOutSuccess ,updateStart, updateSuccess, updateFailure , deleteUserStart, deleteUserSuccess, deleteUserFailure} from '../redux/user/userSlice';
+import { signOutSuccess, updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
-  const { currentUser,error , loading } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -51,7 +51,7 @@ export default function DashProfile() {
 
     // Get Firebase storage reference
     const storage = getStorage(app);
-    
+
     // Generate unique file name using current timestamp and image file name
     const fileName = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, fileName);
@@ -85,7 +85,7 @@ export default function DashProfile() {
       }
     );
   };
-  
+
 
   /**
    * Handles the change event of form inputs and updates the form data state.
@@ -160,7 +160,7 @@ export default function DashProfile() {
       dispatch(updateFailure(error.message));
     }
   };
- 
+
   const handleDelete = async () => {
     setShowModel(false);
     try {
@@ -185,13 +185,13 @@ export default function DashProfile() {
     try {
       const res = await fetch('/api/user/signout', {
         method: 'POST',
-      
+
       });
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       }
-      else{
+      else {
         dispatch(signOutSuccess());
       }
     } catch (error) {
@@ -234,16 +234,26 @@ export default function DashProfile() {
         <TextInput type='text' id='username' name='username' placeholder='username' defaultValue={currentUser.username} onChange={handleChange} />
         <TextInput type='email' id='email' name='email' placeholder='email' defaultValue={currentUser.email} onChange={handleChange} />
         <TextInput type='password' id='password' name='password' placeholder='************' onChange={handleChange} />
-        <Button type='submit' gradientDuoTone='purpleToBlue' outline disabled={loading || imageFileUplading }> 
-        {loading ? 'Updating...' : 'Update Profile'}
+        <Button type='submit' gradientDuoTone='purpleToBlue' outline disabled={loading || imageFileUplading}>
+          {loading ? 'Updating...' : 'Update Profile'}
         </Button>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'> 
         {
-        currentUser.isAdmin && 
-        <Link to={'/create-post'}>
-        <Button type='button'  className='w-full bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 '>Create Post
-        </Button>
-        </Link>
+          currentUser.isAdmin &&
+          <Link to={'/create-post'}>
+            <Button type='button' className='w-full  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... '>Create Post
+            </Button>
+          </Link>
         }
+
+        {
+          currentUser.isAdmin &&
+          <Link to={'/create-project'}>
+            <Button type='button' className='w-full  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... '>Create Project
+            </Button>
+          </Link>
+        }
+        </div>
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span onClick={() => setShowModel(true)} className='hover:underline cursor-pointer'>Delete Account</span>
@@ -258,7 +268,7 @@ export default function DashProfile() {
           <div className='text-center'>
             <HiOutlineExclamationCircle className='mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200' />
             <h3 className='mb-5 text-lg font-normal text-gray-500 dark:text-gray-400'>Are you sure you want to delete your account?</h3>
-        </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button color="failure" onClick={handleDelete} >Delete Account</Button>

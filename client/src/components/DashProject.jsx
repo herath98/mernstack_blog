@@ -14,11 +14,12 @@ export default function DashProject() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getproject=${currentUser._id}`);
+        const res = await fetch(`/api/project/getproject?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
+          setUserPosts(data.projects);
+          
+          if (data.projects.length < 9) {
             setShowMore(false);
           }
         }
@@ -79,7 +80,7 @@ export default function DashProject() {
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <>
-          <Table hoverable className='shadow-md'>
+          <Table hoverable className='shadow-md over'>
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Post image</Table.HeadCell>
@@ -97,7 +98,7 @@ export default function DashProject() {
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/post/${post.slug}`}>
+                    <Link to={`/project/${post.slug}`}>
                       <img
                         src={post.image}
                         alt={post.title}
@@ -108,7 +109,7 @@ export default function DashProject() {
                   <Table.Cell>
                     <Link
                       className='font-medium text-gray-900 dark:text-white'
-                      to={`/post/${post.slug}`}
+                      to={`/project/${post.slug}`}
                     >
                       {post.title}
                     </Link>
@@ -128,7 +129,7 @@ export default function DashProject() {
                   <Table.Cell>
                     <Link
                       className='text-teal-500 hover:underline'
-                      to={`/update-post/${post._id}`}
+                      to={`/update-project/${post._id}`}
                     >
                       <span>Edit</span>
                     </Link>

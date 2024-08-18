@@ -9,5 +9,5 @@ routers.post('/createproject',verifyToken,createproject);
 routers.get('/getproject',getproject);
 routers.get('/getprojectrecent',getprojectrecent);
 routers.delete('/deleteproject/:postId/:userId',verifyToken,deleteproject)
-routers.put('/updateproject/:postId/:userId', verifyToken, updateproject)
+routers.put('/updateproject/:projectId/:userId', verifyToken, updateproject)
 export default routers; 

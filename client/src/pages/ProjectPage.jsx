@@ -21,10 +21,11 @@ export default function ProjectPage() {
         if (!res.ok) {
           setError(true);
           setLoading(false);
+          
           return;
         }
         if (res.ok) {
-          setPost(data.posts[0]);
+          setPost(data.projects[0]);
           setLoading(false);
           setError(false);
         }

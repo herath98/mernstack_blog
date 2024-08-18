@@ -19,6 +19,7 @@ import Search from './pages/Search';
 import CreateProject from './pages/CreateProject'
 import ProjectPage from './pages/ProjectPage'
 import SearchProject from './pages/SearchProject'
+import UpdateProject from './pages/UpdateProject'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/create-project' element={<CreateProject />} />
           <Route path='/update-post/:postId' element={<UpdatePost />} />
+          <Route path='/update-project/:projectId' element={<UpdateProject />} />
         </Route>
 
         <Route path='project' element={<Project />} />

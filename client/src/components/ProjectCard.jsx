@@ -13,7 +13,7 @@ export default function ProjectCard({ post }) {
       </Link>
       <div className='p-3 flex flex-col gap-2'>
         <p className='text-lg font-semibold line-clamp-2'>{post.title}</p>
-        <span className='text-sm grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-2 md:gap-2 font-medium px-2 py-1 rounded-md'>
+        <span className='text-sm flex flex-wrap md:gap-2 font-medium px-2 py-1 rounded-md'>
           {Array.isArray(post.category) && post.category.map((cat, index) => (
             <Link
               key={index}

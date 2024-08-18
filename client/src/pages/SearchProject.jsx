@@ -41,9 +41,9 @@ export default function SearchProject() {
                 return;
             }
             const data = await res.json();
-            setPosts(data.posts);
+            setPosts(data.projects);
             setLoading(false);
-            setShowMore(data.posts.length === 9);
+            setShowMore(data.projects.length === 9);
         };
         fetchPosts();
     }, [location.search]);

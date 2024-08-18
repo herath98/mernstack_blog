@@ -9,21 +9,20 @@ import { signOutSuccess } from "../redux/user/userSlice";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);  // State to manage mobile menu
-    const path = useLocation().pathname;
+    const { pathname, search } = useLocation();
     const { currentUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const { theme } = useSelector((state) => state.theme);
-    const location = useLocation();
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(location.search);
+        const urlParams = new URLSearchParams(search);
         const searchTermFromUrl = urlParams.get('searchTerm');
         if (searchTermFromUrl) {
             setSearchTerm(searchTermFromUrl);
         }
-    }, [location.search]);
+    }, [search]);
 
     const handleSignOut = async () => {
         try {
@@ -43,7 +42,7 @@ export default function Header() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const urlParams = new URLSearchParams(location.search);
+        const urlParams = new URLSearchParams(search);
         urlParams.set('searchTerm', searchTerm);
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
@@ -63,12 +62,11 @@ export default function Header() {
                 <span className="px-2 py-1 bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 rounded-lg text-white">Stars</span>
                 Blog
             </Link>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="hidden md:block">
                 <TextInput
                     type="text"
-                    placeholder="Search...."
-                    rightIcon={AiOutlineSearch}
-                    className="hidden md:inline"
+                    placeholder="Search..."
+                    icon={AiOutlineSearch}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -77,7 +75,7 @@ export default function Header() {
                 <AiOutlineSearch />
             </Button>
             <div className="flex gap-2 md:order-2">
-                <Button className="w-12 h-10 inline" color="gray" pill onClick={() => dispatch(toggleTheme())} >
+                <Button className="w-12 h-10" color="gray" pill onClick={() => dispatch(toggleTheme())}>
                     {theme === 'light' ? <FaSun /> : <FaMoon />}
                 </Button>
                 {currentUser ? (
@@ -87,10 +85,12 @@ export default function Header() {
                         label={
                             <Avatar
                                 alt="user avatar"
-                                img={currentUser.profilePicture} rounded />
+                                img={currentUser.profilePicture}
+                                rounded
+                            />
                         }
                     >
-                        <Dropdown.Header >
+                        <Dropdown.Header>
                             <span className="block text-sm"> @{currentUser.username}</span>
                             <span className="block truncate text-sm font-medium">{currentUser.email}</span>
                         </Dropdown.Header>
@@ -98,7 +98,7 @@ export default function Header() {
                             <Dropdown.Item>Profile</Dropdown.Item>
                         </Link>
                         <DropdownDivider />
-                        <Dropdown.Item onClick={handleSignOut}>SignOut</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
                     </Dropdown>
                 ) : (
                     <Link to="/sign-in">
@@ -108,21 +108,17 @@ export default function Header() {
                     </Link>
                 )}
                 <Navbar.Toggle onClick={toggleMenu} />
-
             </div>
             <Navbar.Collapse className="hidden md:flex">
-                <NavLink to="/" className="nav-link  " exact="true" onClick={closeMenu}>
+                <NavLink to="/" className="nav-link" exact onClick={closeMenu}>
                     Home
                 </NavLink>
-
-
-                <NavLink to="/about" className="nav-link " onClick={closeMenu}>
+                <NavLink to="/about" className="nav-link" onClick={closeMenu}>
                     About
                 </NavLink>
-                <NavLink to="/project" className="nav-link  " onClick={closeMenu}>
+                <NavLink to="/project" className="nav-link" onClick={closeMenu}>
                     Project
                 </NavLink>
-
             </Navbar.Collapse>
 
             {/* Fullscreen Mobile Menu */}
@@ -137,15 +133,15 @@ export default function Header() {
                     </button>
 
                     {/* Menu Links */}
-                    <NavLink to="/" className="nav-link text-xl py-2" exact="true" onClick={closeMenu}>
+                    <NavLink to="/" className="nav-link text-xl py-2" exact onClick={closeMenu}>
                         Home
                     </NavLink>
                     {currentUser && currentUser.isAdmin && (
-                        <NavLink className="nav-link text-xl py-2" to='/dashboard?tab=dash' onClick={closeMenu}>
+                        <NavLink className="nav-link text-xl py-2" to="/dashboard?tab=dash" onClick={closeMenu}>
                             Dashboard
                         </NavLink>
                     )}
-                    <NavLink className="nav-link text-xl py-2" to='/dashboard?tab=profile' onClick={closeMenu}>
+                    <NavLink className="nav-link text-xl py-2" to="/dashboard?tab=profile" onClick={closeMenu}>
                         Profile
                     </NavLink>
                     <NavLink to="/about" className="nav-link text-xl py-2" onClick={closeMenu}>
@@ -154,15 +150,18 @@ export default function Header() {
                     <NavLink to="/project" className="nav-link text-xl py-2" onClick={closeMenu}>
                         Project
                     </NavLink>
-                    {currentUser.isAdmin && (
+                    {currentUser?.isAdmin && (
                         <>
-                            <Link className="nav-link text-xl py-2" to='/dashboard?tab=posts' onClick={closeMenu}>
+                            <Link className="nav-link text-xl py-2" to="/dashboard?tab=posts" onClick={closeMenu}>
                                 Posts
                             </Link>
-                            <Link className="nav-link text-xl py-2" to='/dashboard?tab=users' onClick={closeMenu}>
+                            <Link className="nav-link text-xl py-2" to='/dashboard?tab=project' onClick={closeMenu}>
+                               Projects
+                            </Link>
+                            <Link className="nav-link text-xl py-2" to="/dashboard?tab=users" onClick={closeMenu}>
                                 Users
                             </Link>
-                            <Link className="nav-link text-xl py-2" to='/dashboard?tab=comments' onClick={closeMenu}>
+                            <Link className="nav-link text-xl py-2" to="/dashboard?tab=comments" onClick={closeMenu}>
                                 Comments
                             </Link>
                         </>

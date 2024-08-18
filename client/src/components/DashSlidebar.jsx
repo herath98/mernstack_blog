@@ -6,6 +6,8 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiChartPie,
+  HiDocumentReport,
+  HiOutlineDocument,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -74,6 +76,17 @@ export default function DashSidebar() {
                 as='div'
               >
                 Posts
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=project'>
+              <Sidebar.Item
+                active={tab === 'project'}
+                icon={HiOutlineDocument}
+                as='div'
+              >
+               Projects
               </Sidebar.Item>
             </Link>
           )}
