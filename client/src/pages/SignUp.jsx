@@ -1,4 +1,4 @@
-import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { Alert, Button, Card, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
@@ -15,6 +15,18 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   // Hook to navigate to different routes
   const navigate = useNavigate();
+
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsTooltipVisible(true);
+  };
+  
+  
+
+  const handleMouseLeave = () => {
+    setIsTooltipVisible(false);
+  };
 
   /**
    * Handles form input change event
@@ -101,8 +113,8 @@ export default function SignUp() {
       setLoading(false);
     }
   };
- 
-  
+
+
 
   return (
     <div className="min-h-screen mt-20">
@@ -140,11 +152,32 @@ export default function SignUp() {
                 <Label value="Your Email" />
                 <TextInput id="email" name="email" type="email" placeholder="name@example.com" onChange={handleChange} />
               </div>
-              <div className="w-full mt-1">
+              <div className="relative w-full mt-1">
                 <Label value="Your Password" />
-                <TextInput id="password" name="password" type="password" placeholder="password" onChange={handleChange} />
+                <TextInput
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  onChange={handleChange}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={handleMouseEnter}
+
+                />
+                {isTooltipVisible && (
+                  <Card className="absolute z-10 w-64 md:w-72  rounded-lg shadow-lg">
+                    <div>Must have at least 6 characters</div>
+                    <div>It's better to have:</div>
+                    <ul className="list-disc ml-4">
+                      <li>Upper & lower case letters</li>
+                      <li>A symbol (#$&)</li>
+                      <li>A longer password (min. 12 chars.)</li>
+                    </ul>
+                  </Card>
+                )}
               </div>
-              <Button className="w-full mt-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... "  type="submit" disabled={loading}>
+              <Button className="w-full mt-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... " type="submit" disabled={loading}>
                 {loading ? (
                   <>
                     <Spinner size="sm" aria-label="Loading spinner" />
