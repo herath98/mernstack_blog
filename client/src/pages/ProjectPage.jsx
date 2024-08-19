@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import ProjectCard from '../components/ProjectCard';
 
 export default function ProjectPage() {
   const { projectSlug } = useParams();
@@ -43,7 +44,7 @@ export default function ProjectPage() {
         const res = await fetch(`/api/project/getproject?limit=3`);
         const data = await res.json();
         if (res.ok) {
-          setRecentPosts(data.posts);
+          setRecentPosts(data.projects);
         }
       };
       fetchRecentPosts();
@@ -100,7 +101,7 @@ export default function ProjectPage() {
         <h1 className='text-xl mt-5'>Recent articles</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 justify-center'>
           {recentPosts &&
-            recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+            recentPosts.map((post) => <ProjectCard key={post._id} post={post} />)}
         </div>
       </div>
     </main>

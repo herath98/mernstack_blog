@@ -6,6 +6,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOutSuccess } from "../redux/user/userSlice";
+import logo from "../assets/logo.png";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);  // State to manage mobile menu
@@ -57,10 +58,9 @@ export default function Header() {
     };
 
     return (
-        <Navbar className="border-b-2">
+        <Navbar className="border-b-2  w-full">
             <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
-                <span className="px-2 py-1 bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 rounded-lg text-white">Stars</span>
-                Blog
+                <img src={logo} alt="logo" className="h-12 w-12 rounded-full" />
             </Link>
             <form onSubmit={handleSubmit} className="hidden md:block">
                 <TextInput

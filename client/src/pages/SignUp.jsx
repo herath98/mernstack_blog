@@ -2,7 +2,8 @@ import { Alert, Button, Card, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
-import { set } from "mongoose";
+import logo from "../assets/logo.png";
+
 
 export default function SignUp() {
   // State hook to store form data
@@ -118,12 +119,11 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen mt-20">
-      <div className="flex p-4 max-w-3xl mx-auto flex-col md:flex-row dark:bg-gray-900">
+      <div className="flex p-4 max-w-4xl mx-auto flex-col md:flex-row dark:bg-gray-900">
         <div className="w-full md:w-1/2 p-4">
-          <div className="mt-12">
+          <div className="my-auto">
             <Link to="/" className="text-5xl font-bold dark:text-white">
-              <span className="px-2 py-1 bg-gradient-to-r from-lime-500 via-cyan-500 to-violet-800 rounded-lg text-white">Stars</span>
-              Blog
+              <img src={logo} alt="logo" className="w-64 h-64 mx-auto flex rounded-full" />
             </Link>
             <p className="justify-center text-sm mt-4">
               The sun hung low in the sky, casting long shadows across the rugged landscape. The air was crisp, and the breeze was wafting with the scent of pine and damp earth.

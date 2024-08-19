@@ -118,7 +118,10 @@ export default function Home() {
       <div className='max-w-7xl mx-auto p-3 flex md:mt-20 flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
           <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
+                <div className='text-2xl font-semibold text-center relative mb-20'>
+           Recent Post
+            <div className="absolute -bottom-2 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."></div>
+            </div>
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4'>
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
@@ -136,7 +139,10 @@ export default function Home() {
       <div className='max-w-7xl mx-auto p-3 flex md:mt-20 flex-col gap-8 py-7'>
         {project && project.length > 0 && (
           <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
+             <div className='text-2xl font-semibold text-center relative mb-20'>
+           Recent Projects
+            <div className="absolute -bottom-2 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ..."></div>
+            </div>
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4'>
               {project.map((post) => (
                 <ProjectCard key={post._id} post={post} />
