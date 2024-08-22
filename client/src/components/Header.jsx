@@ -116,6 +116,9 @@ export default function Header() {
                 <NavLink to="/about" className="nav-link" onClick={closeMenu}>
                     About
                 </NavLink>
+                <NavLink to="/search" className="nav-link" onClick={closeMenu}>
+                   Post
+                </NavLink>
                 <NavLink to="/project" className="nav-link" onClick={closeMenu}>
                     Project
                 </NavLink>
@@ -146,6 +149,9 @@ export default function Header() {
                     </NavLink>
                     <NavLink to="/about" className="nav-link text-xl py-2" onClick={closeMenu}>
                         About
+                    </NavLink>
+                    <NavLink to="/search" className="nav-link text-xl py-2" onClick={closeMenu}>
+                       Post
                     </NavLink>
                     <NavLink to="/project" className="nav-link text-xl py-2" onClick={closeMenu}>
                         Project

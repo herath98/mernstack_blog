@@ -63,8 +63,8 @@ export const getproject = async (req, res, next) => {
         }
 
         // If a postId query parameter is provided, add it to the query object
-        if (req.query.postId) {
-            query._id = req.query.postId;
+        if (req.query.projectId) {
+            query._id = req.query.projectId;
         }
 
         // If a searchTerm query parameter is provided, add a $or query to the query object

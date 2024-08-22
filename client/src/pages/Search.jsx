@@ -103,8 +103,8 @@ export default function Search() {
     return (
         <div className='flex flex-col '>
             <div className='p-8  border-gray-500'>
-                <form className='flex flex-row justify-end gap-4' onSubmit={handleSubmit}>
-                    <div className='flex  gap-4 justify-between '>
+            <form className=' space-y-2 md:space-y-0 md:flex md:flex-row justify-end gap-4' onSubmit={handleSubmit}>
+            <div className='flex gap-4  justify-between'>
                         <label className='whitespace-nowrap font-semibold'>
                             Search Term:
                         </label>
@@ -116,14 +116,14 @@ export default function Search() {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className='flex  justify-items-start gap-2'>
+                    <div className='flex gap-4  justify-between'>
                         <label className='font-semibold'>Sort:</label>
                         <Select onChange={handleChange} value={sidebarData.sort} id='sort'>
                             <option value='desc'>Latest</option>
                             <option value='asc'>Oldest</option>
                         </Select>
                     </div>
-                    <div className='flex justify-items-start gap-2'>
+                    <div className='flex gap-4  justify-between'>
                         <label className='font-semibold'>Category:</label>
                         <Select
                             onChange={handleChange}
@@ -145,7 +145,7 @@ export default function Search() {
                 <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 '>
                     Posts results:
                 </h1>
-                <div className='p-7 flex flex-wrap gap-4'>
+                <div className='p-2  md:p-7 flex flex-wrap gap-4'>
                     {!loading && posts.length === 0 && (
                         <p className='text-xl text-gray-500'>No posts found.</p>
                     )}
