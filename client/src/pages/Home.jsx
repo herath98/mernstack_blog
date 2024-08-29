@@ -12,14 +12,24 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [project,setProject] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [totalPosts, setTotalPosts] = useState(0); 
 
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/post/getPosts');
-      const data = await res.json();
-      setPosts(data.posts);
+      try {
+        const res = await fetch('/api/post/getPosts');
+        const data = await res.json();
+        setPosts(data.posts);
+    
+        // Set the total number of posts
+        setTotalPosts(data.posts.length);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
+    
+    
     const fetchProject = async () => {
       const res = await fetch('/api/project/getprojectrecent');
       const data = await res.json();
@@ -95,7 +105,7 @@ export default function Home() {
                   <Link to='/project' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View All Projects</Link>
                 </div>
                 <div className='bg-cyan-900 text-center p-4 sm:w-[300px] lg:p-8 rounded-xl '>
-                  <h3 className="text-2xl font-bold">50 +</h3>
+                  <h3 className="text-2xl font-bold">{totalPosts}</h3>
                   <p>Blog Post</p>
                   <Link  to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View All Post</Link>
                 </div>
