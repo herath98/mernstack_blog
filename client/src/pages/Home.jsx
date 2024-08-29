@@ -35,8 +35,8 @@ export default function Home() {
   const handleDownloadCV = () => {
     // Trigger the download of the CV
     const link = document.createElement("a");
-    link.href = "/Harsha_CV.pdf"; // The path to your CV in the public folder
-    link.download = "Harsha_CV.pdf"; // Optional: specify the download filename
+    link.href = "/_Harsha Udayanga_Resume.pdf"; // The path to your CV in the public folder
+    link.download = "_Harsha Udayanga_Resume.pdf"; // Optional: specify the download filename
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
